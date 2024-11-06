@@ -14,31 +14,30 @@ public class Main {
     );
 
     public static void main(String[] args) {
-        String input = "IX";
+        String input = "MCMIX";
 
-        if (input.length() > 15) {
-            throw new IllegalArgumentException("Entrada maior que 15 caracteres");
-        }
+        assert input.length() >= 1 && input.length() <= 15;
 
         int sum = 0;
-        char[] charArray = input.toCharArray();
+        for (int i = 0; i < input.length(); i++) {
+            char currentSymbol = input.charAt(i);
+            assert TABLE.containsKey(currentSymbol);
 
-        for (int i = 0; i < charArray.length; i++) {
-            char symbol = charArray[i];
-            char nextSymbol = charArray[i + 1];
-
-            if (!TABLE.containsKey(symbol) || !TABLE.containsKey(nextSymbol)) {
-                throw new IllegalArgumentException("Argumento não consta na tabela");
+            int currentNumber = TABLE.get(currentSymbol);
+            if (i == input.length() - 1) {
+                sum += currentNumber;
             }
 
-            int number = TABLE.get(symbol);
-            int nextNumber = TABLE.get(nextSymbol);
+            char nextSymbol = input.charAt(i + 1);
+            assert TABLE.containsKey(nextSymbol);
 
-            if (number >= nextNumber) {
-                sum += number;
+            if (currentNumber >= TABLE.get(nextSymbol)) {
+                sum += currentNumber;
             } else {
-                sum -= number;
+                sum += -currentNumber;
             }
         }
+
+        System.out.printf("%s -> para inteiro -> %d%n", input, sum);
     }
 }
