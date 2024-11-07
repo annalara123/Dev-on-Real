@@ -1,5 +1,3 @@
-import java.util.logging.Logger;
-
 public class Main {
     public static void main(String[] args) {
         int n = 10;
@@ -10,14 +8,22 @@ public class Main {
         }
 
         int[] sumNumbers = addIndivisibleAndDivisibleNumbersInARange(n, m);
+        int calculateDifference = sumNumbers [0] - sumNumbers[1];
+
+        System.out.println(calculateDifference);
     }
 
     public static int[] addIndivisibleAndDivisibleNumbersInARange(int finalRangeNumber, int divisionNumber) {
         int sumIndivisibleNumbers = 0;
+        int sumDivisibleNumbers = 0;
 
         for (int i = 1; i <= finalRangeNumber; i++) {
             if (i % divisionNumber != 0)
                 sumIndivisibleNumbers += i;
+            else
+                sumDivisibleNumbers += i;
         }
+
+        return new int[]{sumIndivisibleNumbers, sumDivisibleNumbers};
     }
 }
